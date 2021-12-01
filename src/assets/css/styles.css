@@ -1,0 +1,241 @@
+html,
+body {
+  margin: 0rem;
+  background-color: rgb(53, 51, 51);
+  color: white;
+}
+a{
+  cursor: pointer;
+}
+#contenido-header {
+  column-gap: 2.5rem;
+}
+#container {
+  font-size: 1.5rem;
+}
+#img0 {
+  width: 15rem;
+  height: auto;
+}
+#img1 {
+  max-width: 100%;
+}
+#img2 {
+  width: 8rem;
+}
+#titulo {
+  padding: 0.9rem;
+  font-size: 3rem;
+}
+#casillaCantidad {
+  width: 3rem;
+}
+.card {
+  background-color: rgb(41, 40, 40);
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.card:hover {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3%);
+}
+.titulo-datos {
+  font-size: 1.4rem;
+  text-align: center;
+  background-color: rgb(53, 51, 51);
+  padding: 0.3rem;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.titulo-slider {
+  font-family: "Arial", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 2rem;
+  color: white;
+}
+.descripcion-slider {
+  font-family: "Arial", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1rem;
+  color: white;
+}
+.carousel-caption {
+  position: absolute;
+}
+.texto-slider {
+  height: 13rem;
+  background-color: transparent;
+  z-index: 2;
+  padding: 10px;
+}
+.fondo-slider {
+  position: absolute;
+  right: 0;
+  bottom: -1.5rem;
+  left: 0;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+.offcanvas {
+  background-color: rgb(90, 88, 88);
+}
+.offcanvas-top {
+  width: 100%;
+  height: 100%;
+}
+.offcanvas-end {
+  width: 35%;
+}
+.offcanvas-start {
+  width: 35%;
+}
+.offcanvas-content {
+  justify-content: center;
+  background-color: rgb(109, 106, 106);
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+.text-justify {
+  text-align: justify;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: rgb(255, 255, 255);
+  background-color: #596679;
+}
+.nav-link:hover {
+  box-shadow: 5px 5px 20px rgba(216, 208, 208, 0.76);
+  transform: translateY(-3%);
+  background-color: #596679;
+}
+.nav-pills {
+  background-color: rgb(15, 15, 15);
+  opacity: 0.8;
+}
+.nav-link {
+  height: 100%;
+  width: 100%;
+  font-size: 1.3rem;
+  position: relative;
+}
+.table {
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.selector-cantidad {
+  justify-content: center;
+}
+.btn-cantidad {
+  position: relative;
+  text-align: center;
+  width: 30px;
+  height: 40px;
+  background-color: #596679;
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.form-cant {
+  text-align: center;
+  width: 30px;
+  height: 40px;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.bi {
+  color: white;
+}
+.bi-cart2 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.bi-check-circle {
+  width: 25rem;
+  color: #31ca57;
+}
+.badge {
+  font-size: 0.75rem;
+  position: absolute;
+  top: -0.1rem;
+  background-color: #1059be;
+}
+.offcanvas-footer {
+  width: 100%;
+  height: 20%;
+}
+.modal-content {
+  background: rgb(109, 106, 106);
+  color: white;
+}
+
+.badge-en-stock {
+  background-color: #31ca57;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.badge-sin-stock {
+  background-color: #db2121;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.badge-poco-stock {
+  background-color: #fa7c07;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+.stock-item {
+  font-size: 0.8rem;
+  top: 0.4rem;
+  right: 0rem;
+  position: relative;
+}
+#monto-total {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #31ca57;
+  background-color: #252729;
+  padding: 0.5rem;
+}
+.precio-cantidad {
+  color: #31ca57;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
+}
+#encabezado-carrito {
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.mis-compras {
+  background-color: #404142;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  justify-content: center;
+}
+.envio-status{
+  color: green;
+}
+.total-precio, .envio-checkout{
+  color: #31ca57;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+#btn-confirmar{
+  align-items: center;
+}
+#copyright{
+background-color: rgba(0, 0, 0, 0.2);
+}
