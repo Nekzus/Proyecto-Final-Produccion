@@ -4,7 +4,8 @@ import { renderizarProductos, renderizarSliders, renderizarCarrito, renderizarHi
 import {
     btnEmptyCart, totalQuantity, userName, userProfile, noticeLogin, usernameSignup, emailSignUp, passwordSignup, visibleLogin, visibleLogout,
     firstnameSignup, lastnameSignup, addressSignup, citySignup, stateSignup, zipSignup, signupForm, checkoutCart, signinForm, emailLogin, passwordLogin, logout, modifyForm,
-    addressModify, cityModify, stateModify, zipModify, modalCheckout, btnConfirm, btnCancel } from '../modules/selectors.js';
+    addressModify, cityModify, stateModify, zipModify, modalCheckout, btnConfirm, btnCancel, preloader
+} from '../modules/selectors.js';
 //**IMPORTACION FUNCIONES FIRESTORE */
 import { db, guardarObjetosDB, guardarDatosDB, actualizarDatosDB, auth } from '../modules/crud-firestore.js';
 
@@ -264,29 +265,31 @@ checkoutCart.addEventListener('click', (e) => {
         renderizarModalCheckout(metadataUser); // Se ejecuta la función para renderizar el modal de checkout.
         mostrarOcultarModal('#checkout-modal', 'show'); // Se muestra el modal de checkout.
         btnConfirm.style.display = "block";
-        btnCancel.style.display = "block"; 
-        btnConfirm.addEventListener('click',(e) => {
-            e.preventDefault();
-        productCart = [...productCart, metadataUser]; // Se agrega metadatos al array de carrito.
-        guardarDatosDB(productCart, 'transaccion');
-        productCart.forEach(item => {
-            if (item.id !== undefined) {
-                const id = (item.id).toString();
-                const stock = (item.stock - item.cantidad);
-                actualizarDatosDB('games', id, stock)
-            };
-            productCart = [];
-            localStorage.setItem('productCart', JSON.stringify(productCart)); // Se almacena en el localStorage el nuevo objeto-item creado.
-            renderizarCarrito();// Se recarga la pagina.
-        })
-        modalCheckout.innerHTML = ``; // Se limpia el modal de checkout.
-        modalCheckout.innerHTML = `
+        btnCancel.style.display = "block";
+        btnConfirm.addEventListener('click', (e) => {
+            e.stopPropagation()
+            if (productCart.length !== 0) {
+                productCart = [...productCart, metadataUser]; // Se agrega metadatos al array de carrito.
+                guardarDatosDB(productCart, 'transaccion');
+                productCart.forEach(item => {
+                    if (item.id !== undefined) {
+                        const id = (item.id).toString();
+                        const stock = (item.stock - item.cantidad);
+                        actualizarDatosDB('games', id, stock)
+                    };
+                    productCart = [];
+                    localStorage.setItem('productCart', JSON.stringify(productCart)); // Se almacena en el localStorage el nuevo objeto-item creado.
+                    renderizarCarrito();// Se recarga la pagina.
+                })
+                modalCheckout.innerHTML = ``; // Se limpia el modal de checkout.
+                modalCheckout.innerHTML = `
         <h3 class="title"><i class="bi bi-check-circle"></i> Gracias por tu compra</h3>
         <p>Tu compra ha sido realizada con éxito. Pronto recibiras noticias sobre tu envió.</p>
         `;
-        btnConfirm.style.display = "none";
-        btnCancel.style.display = "none";
-    });
+                btnConfirm.style.display = "none";
+                btnCancel.style.display = "none";
+            }
+        });
     } else {
         mostrarOcultarModal('#signin-modal', 'show');
         noticeLogin.innerHTML = 'Para comprar debes estar logueado. Inicia sesión.';
@@ -322,7 +325,7 @@ signupForm.addEventListener('submit', (e) => {
             guardarObjetosDB(user, 'usuarios'); // Se almacena el usuario en la base de datos.
             // Se limpia el formulario.
             signupForm.reset();
-            mostrarOcultarModal('#signup-modal','hide'); // Se cierra el modal de registro.
+            mostrarOcultarModal('#signup-modal', 'hide'); // Se cierra el modal de registro.
             signupForm.querySelector('.error').innerHTML = 'Registro correcto.'; // Se limpia el mensaje de error.
             signupForm.querySelector('.error').innerHTML = ''; // Se limpia el mensaje de error.
         }).catch(error => {
@@ -351,7 +354,7 @@ signinForm.addEventListener('submit', (e) => {
         .then(userCredential => {
             // Se limpia el formulario.
             signinForm.reset();
-            mostrarOcultarModal('#signin-modal','hide');
+            mostrarOcultarModal('#signin-modal', 'hide');
             // console.log('sign in')
             signinForm.querySelector('.error').innerHTML = '';
         }).catch(error => {
@@ -471,7 +474,7 @@ modifyForm.addEventListener('submit', (e) => {
         }).then(() => {
             modifyForm.reset();
             modifyForm.querySelector('.error').innerHTML = '';
-            mostrarOcultarModal('#modify-modal','hide')
+            mostrarOcultarModal('#modify-modal', 'hide')
         })
     }
 });

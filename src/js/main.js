@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     leerDatosUsuarioDB('usuarios');
 });
 
-import { leerProductosDB, leerHistorialDB, leerDatosUsuarioDB , habilitarSolapas } from '../modules/functions.js';
+import { leerProductosDB, leerHistorialDB, leerDatosUsuarioDB, habilitarSolapas } from '../modules/functions.js';
 
 
 
