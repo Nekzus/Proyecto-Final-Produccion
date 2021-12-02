@@ -284,7 +284,8 @@ checkoutCart.addEventListener('click', (e) => {
                 modalCheckout.innerHTML = ``; // Se limpia el modal de checkout.
                 modalCheckout.innerHTML = `
         <h3 class="title"><i class="bi bi-check-circle"></i> Gracias por tu compra</h3>
-        <p>Tu compra ha sido realizada con éxito. Pronto recibiras noticias sobre tu envió.</p>
+        <p>La operación fue realizada con éxito. Pronto recibiras noticias sobre tu envió.</p>
+        <p>Consulta datos de envio y operación en el menu Mis Compras.</p>
         `;
                 btnConfirm.style.display = "none";
                 btnCancel.style.display = "none";
