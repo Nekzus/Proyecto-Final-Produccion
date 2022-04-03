@@ -1,4 +1,4 @@
 # Proyecto Final JavaScipt - Nekzus Game Store
-webstore desplegada https://www.nekzusgamestore.com.ar
+webstore desplegada https://nekzus-game-store-dw.web.app
 
 

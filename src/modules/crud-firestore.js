@@ -1,9 +1,8 @@
-
-//**CONFIGURACION ACCESO BASE DE DATOS CLOUD FIRESTORE */
+//**CONFIGURACION ACCESO BASE DE DATOS CLOUD FIRESTORE *
 firebase.initializeApp({
-    apiKey: "AIzaSyAj_QzB-MmlcW9SO491oYjXz5pveZCWLJY",
-    authDomain: "db-nekzusgamestore-js23175.firebaseapp.com",
-    projectId: "db-nekzusgamestore-js23175"
+    apiKey: YOUR_APIKEY,
+    authDomain: YOUR_AUTHDOMAIN,
+    projectId: YOUR_PROJECTID,
 });
 
 export const db = firebase.firestore();
@@ -13,8 +12,8 @@ export const auth = firebase.auth();
 export const guardarDatosDB = (datos, coleccion) => {
 
     db.collection(coleccion).add({
-        datos
-    })
+            datos
+        })
         .then((docRef) => {
             // console.log("Transacción guardada con exito bajo ID: ", docRef.id);
             return docRef;
@@ -36,7 +35,7 @@ export const guardarObjetosDB = (datos, coleccion) => {
 };
 
 //**LEER DATOS EN LA BASE DE DATOS */
-export const leerDatosDB = async (coleccion) => {
+export const leerDatosDB = async(coleccion) => {
     await db.collection(coleccion).onSnapshot((onSnapshot) => {
         const data = onSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
         return data;
@@ -45,9 +44,9 @@ export const leerDatosDB = async (coleccion) => {
 
 //**BORRAR DATOS EN LA BASE DE DATOS */
 export const borrarDatosDB = (id, coleccion) => {
-    db.collection(coleccion).doc(id).delete().then(function () {
+    db.collection(coleccion).doc(id).delete().then(function() {
         console.log("Documento borrado con exito!");
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.error("Error borrando documento: ", error);
     });
 };
@@ -57,12 +56,12 @@ export const actualizarDatosDB = (coleccion, id, dato) => {
     const updateRef = db.collection(coleccion).doc(id);
 
     return updateRef.update({
-        stock: dato,
-    })
-        .then(function () {
+            stock: dato,
+        })
+        .then(function() {
             // console.log("Stock actualizado con exito!");
         })
-        .catch(function (error) {
+        .catch(function(error) {
             // The document probably doesn't exist.
             console.error("Error actualizando documento: ", error);
         });

@@ -2,9 +2,37 @@
 import { renderizarProductos, renderizarSliders, renderizarCarrito, renderizarHistorial, renderizarDatosPersonales, renderizarModalCheckout } from '../modules/renders.js';
 //**IMPORTACION SELECTORES */
 import {
-    btnEmptyCart, totalQuantity, userName, userProfile, noticeLogin, usernameSignup, emailSignUp, passwordSignup, visibleLogin, visibleLogout,
-    firstnameSignup, lastnameSignup, addressSignup, citySignup, stateSignup, zipSignup, signupForm, checkoutCart, signinForm, emailLogin, passwordLogin, logout, modifyForm,
-    addressModify, cityModify, stateModify, zipModify, modalCheckout, btnConfirm, btnCancel, preloader
+    btnEmptyCart,
+    totalQuantity,
+    userName,
+    userProfile,
+    noticeLogin,
+    usernameSignup,
+    emailSignUp,
+    passwordSignup,
+    visibleLogin,
+    visibleLogout,
+    firstnameSignup,
+    lastnameSignup,
+    addressSignup,
+    citySignup,
+    stateSignup,
+    zipSignup,
+    signupForm,
+    checkoutCart,
+    signinForm,
+    emailLogin,
+    passwordLogin,
+    logout,
+    modifyForm,
+    addressModify,
+    cityModify,
+    stateModify,
+    zipModify,
+    modalCheckout,
+    btnConfirm,
+    btnCancel,
+    preloader,
 } from '../modules/selectors.js';
 //**IMPORTACION FUNCIONES FIRESTORE */
 import { db, guardarObjetosDB, guardarDatosDB, actualizarDatosDB, auth } from '../modules/crud-firestore.js';
@@ -13,9 +41,12 @@ export let productCart = JSON.parse(localStorage.getItem('productCart')) || []; 
 export let date = 0; // variable fecha actual.
 export let metadataUser = {}; // variable metadatos carrito.
 export let dataUser = {}; // variable que almacena los datos del usuario, que seran ingresados a la variable de metadatos.
+export const apiKey = process.env.APIKEY;
+export const authDomain = process.env.AUTHDOMAIN;
+export const projectId = process.env.PROJECTID;
 
 //**LEER PRODUCTOS DB CLOUD FIREBASE*/
-export const leerProductosDB = async (collection) => {
+export const leerProductosDB = async(collection) => {
     await db.collection(collection).onSnapshot((onSnapshot) => { // Se lee la coleccion de la base de datos.
         const data = onSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
         habilitarSolapas();
@@ -28,7 +59,7 @@ export const leerProductosDB = async (collection) => {
 };
 
 //**LEER HISTORIAL DB CLOUD FIREBASE*/
-export const leerHistorialDB = async (collection) => {
+export const leerHistorialDB = async(collection) => {
     await db.collection(collection).onSnapshot((onSnapshot) => { // Se lee la coleccion de la base de datos.
         const data = onSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
         renderizarHistorial(data);
@@ -36,7 +67,7 @@ export const leerHistorialDB = async (collection) => {
 };
 
 //**LEER DATOS DE USUARIO DB CLOUD FIREBASE*/
-export const leerDatosUsuarioDB = async (collection) => {
+export const leerDatosUsuarioDB = async(collection) => {
     await db.collection(collection).onSnapshot((onSnapshot) => { // Se lee la coleccion de la base de datos.
         const data = onSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
         if (auth.currentUser) {
@@ -50,8 +81,8 @@ export const leerDatosUsuarioDB = async (collection) => {
 //**FUNCIÓN BORRADO INDIVIDUAL DE ITEM */
 export const borrarItem = () => {
     const btnDeleteItem = document.querySelectorAll('.btn-borrar'); // Se seleccionan todos los botones de borrado sobre la el carrito.
-    btnDeleteItem.forEach(btn => {   // Se recorren y se escucha si alguno fue pulsado
-        btn.addEventListener('click', (e) => {  // Se escucha el evento click sobre el boton.
+    btnDeleteItem.forEach(btn => { // Se recorren y se escucha si alguno fue pulsado
+        btn.addEventListener('click', (e) => { // Se escucha el evento click sobre el boton.
             e.stopPropagation(); // Se detiene la propagacion del evento.
             let deleteItem = parseInt(btn.id); // Se reconoce el boton pulsado por su numero de id. Coincidente con el código de producto.
             const btnAdd = document.querySelector(`.btn-agregar[id="${deleteItem}"]`); // Se selecciona el boton de agregar con el mismo código de producto.
@@ -176,8 +207,8 @@ export const vaciarCarrito = () => {
 //** FUNCION PARA INCREMENTAR O DECREMENTAR LA CANTIDAD DE ITEMS MEDIANTE BOTONES */
 export const cambiarCantidad = () => {
     const btnQuantity = document.querySelectorAll('.btn-cantidad');
-    btnQuantity.forEach(btn => {   // Se recorren y se escucha si alguno fue pulsado
-        btn.addEventListener('click', (e) => {  // Se escucha el evento click sobre el boton.
+    btnQuantity.forEach(btn => { // Se recorren y se escucha si alguno fue pulsado
+        btn.addEventListener('click', (e) => { // Se escucha el evento click sobre el boton.
             e.stopPropagation(); // Se detiene la propagacion del evento.
             let itemChange = parseInt(btn.id); // Se reconoce el boton pulsado por su numero de id. Coincidente con el código de producto.
             if (e.target.classList.contains('btn-sumar')) { // Se verifica si el boton fue pulsado para incrementar o decrementar.
@@ -187,7 +218,7 @@ export const cambiarCantidad = () => {
                 if (product.cantidad < 10 && product.stock - product.cantidad > 0) { // Se verifica que la cantidad no supere el limite.
                     product.cantidad++; // Se incrementa la cantidad del producto.
                     localStorage.setItem('productCart', JSON.stringify(productCart)); // Se almacena el array con el item borrado.
-                    renderizarCarrito();// Se verifica si el boton fue pulsado para incrementar o decrementar.
+                    renderizarCarrito(); // Se verifica si el boton fue pulsado para incrementar o decrementar.
                 } else { btn.disabled = true };
 
             } else if (e.target.classList.contains('btn-restar')) {
@@ -195,11 +226,10 @@ export const cambiarCantidad = () => {
                 if (product.cantidad > 1) {
                     product.cantidad--; // Se incrementa la cantidad del producto.
                     localStorage.setItem('productCart', JSON.stringify(productCart)); // Se almacena el array con el item borrado.
-                    renderizarCarrito();// Se verifica si el boton fue pulsado para incrementar o decrementar.
+                    renderizarCarrito(); // Se verifica si el boton fue pulsado para incrementar o decrementar.
                 } else { btn.disabled = true };
             }
-        }
-        )
+        })
     })
 };
 
@@ -216,31 +246,31 @@ const mostrarIconos = (user) => {
 
 //**FUNCION DE HABILITACION SOLAPAS PANTALLA INICIO */
 export const habilitarSolapas = () => {
-    $('#pills-signin-tab').on('click', function (e) {
+    $('#pills-signin-tab').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })
 
-    $('#pills-signup-tab').on('click', function (e) {
+    $('#pills-signup-tab').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })
 
-    $('#pills-logout-tab').on('click', function (e) {
+    $('#pills-logout-tab').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })
 
-    $('#pills-login-tab').on('click', function (e) {
+    $('#pills-login-tab').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })
-    $('#pills-historial-tab').on('click', function (e) {
+    $('#pills-historial-tab').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })
 
-    $('#pills-carrito-tab').on('click', function (e) {
+    $('#pills-carrito-tab').on('click', function(e) {
         e.preventDefault()
         $(this).tab('show')
     })
@@ -279,7 +309,7 @@ checkoutCart.addEventListener('click', (e) => {
                     };
                     productCart = [];
                     localStorage.setItem('productCart', JSON.stringify(productCart)); // Se almacena en el localStorage el nuevo objeto-item creado.
-                    renderizarCarrito();// Se recarga la pagina.
+                    renderizarCarrito(); // Se recarga la pagina.
                 })
                 modalCheckout.innerHTML = ``; // Se limpia el modal de checkout.
                 modalCheckout.innerHTML = `
@@ -398,7 +428,7 @@ auth.onAuthStateChanged(user => {
 });
 
 //**OBTENER NOMBRE DE USUARIO REGISTRADO */
-const buscarUsuario = async (email, collection) => {
+const buscarUsuario = async(email, collection) => {
     await db.collection(collection).onSnapshot((onSnapshot) => {
         const data = onSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
         const userDB = data.find(user => user.email === email);
